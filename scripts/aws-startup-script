@@ -1,0 +1,25 @@
+sudo yum update -y
+yes | sudo amazon-linux-extras install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+sudo service docker stop
+sudo service docker start
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo mkdir /home/ec2-user/html-for-letsencrypt/
+sudo mkdir /home/ec2-user/dhparam/
+
+cd /home/ec2-user/
+
+git clone https://github.com/damishshah/videochat-infrastructure.git
+git clone https://github.com/damishshah/videochat.git
+
+cd /home/ec2-user/videochat-infrastructure
+sudo chmod +x init.sh
+./init.sh
+
+cd /home/ec2-user/videochat
+docker-compose up -d nodejs
+docker-compose up -d --force-recreate --no-deps webserver
