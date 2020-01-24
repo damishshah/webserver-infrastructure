@@ -7,4 +7,4 @@ cd /home/ec2-user/videochat
 $COMPOSE run certbot renew && $COMPOSE kill -s SIGHUP webserver
 $DOCKER system prune -af
 
-# sudo crontab -e -> 0 0 */3 * * /home/ec2-user/videochat/ssl_renew.sh >> /var/log/cron.log 2>&1
+# sudo crontab -e -> 0 0 */3 * * /home/ec2-user/videochat-infrastructure/scripts/ssl_renew.sh >> /var/log/cron.log 2>&1
