@@ -13,7 +13,7 @@ services:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
     networks:
-      - app-network
+      - shared-network
 
   certbot:
     image: certbot/certbot
@@ -35,9 +35,9 @@ volumes:
       driver: local
       driver_opts:
         type: none
-        device: /home/ec2-user/html-for-letsencrypt/
+        device: /home/ec2-user/damishshah.github.io/
         o: bind
 
 networks:
-  app-network:
+  shared-network:
     driver: bridge
