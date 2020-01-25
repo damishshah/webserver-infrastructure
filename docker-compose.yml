@@ -22,6 +22,8 @@ services:
       - /home/ec2-user/certs/certbot-etc:/etc/letsencrypt
       - /home/ec2-user/certs/certbot-var:/var/lib/letsencrypt
       - web-root:/var/www/html
+    depends_on:
+      - webserver
     command: certonly --webroot --webroot-path=/var/www/html --email damish.shah@gmail.com --agree-tos --no-eff-email --force-renewal -d damishshah.com  -d www.damishshah.com 
     # You can use the staging version of certbot for testing, so we don't get throttled.
     # command: certonly --webroot --webroot-path=/var/www/html --email damish.shah@gmail.com --agree-tos --no-eff-email --staging -d damishshah.com  -d www.damishshah.com 
