@@ -1,5 +1,7 @@
+#!/bin/bash
 sudo yum update -y
 yes | sudo amazon-linux-extras install docker
+sudo yum install git -y
 sudo service docker start
 sudo usermod -a -G docker ec2-user
 
@@ -14,7 +16,6 @@ sudo mkdir /home/ec2-user/certs/certbot-var
 sudo mkdir /home/ec2-user/dhparam/
 
 cd /home/ec2-user/
-sudo yum install git -y
 
 git clone https://github.com/damishshah/videochat-infrastructure.git
 git clone https://github.com/damishshah/videochat.git
@@ -22,7 +23,7 @@ git clone https://github.com/damishshah/damishshah.github.io.git
 
 cd /home/ec2-user/videochat-infrastructure
 sudo chmod +x init.sh
-./init.sh
+sudo ./init.sh
 
 cd /home/ec2-user/dhparam/
 sudo openssl dhparam -out /home/ec2-user/dhparam/dhparam-2048.pem 2048
@@ -30,8 +31,8 @@ sudo openssl dhparam -out /home/ec2-user/dhparam/dhparam-2048.pem 2048
 cd /home/ec2-user/videochat
 docker-compose up -d
 
-cd /home/ec2-user/damishshah.github.io
-docker container stop webserver
-docker container rm webserver
-docker-compose up -d --force-recreate --no-deps webserver
-
+# cd /home/ec2-user/damishshah.github.io
+# docker container stop webserver
+# docker container rm webserver
+# docker-compose up -d --no-deps webserver
+# chown -R ec2-user:ec2-user /home/ec2-user
